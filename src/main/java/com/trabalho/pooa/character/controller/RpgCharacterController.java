@@ -21,7 +21,7 @@ public class RpgCharacterController {
         this.repository = repository;
     }
 
-    @ApiOperation(value="Retorna uma lista de personagens do rpg")
+    @ApiOperation(value="Retorna todos os personagens")
     @GetMapping
     public List<RpgCharacter> findAllCharacters() {
         return repository.findAll();
@@ -34,13 +34,13 @@ public class RpgCharacterController {
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @ApiOperation(value="Inserir um personagem passando seus atributos pelo corpo")
+    @ApiOperation(value="Inserir um personagem")
     @PostMapping
     public RpgCharacter createNewCharacter(@RequestBody RpgCharacter newCharacter) {
         return repository.save(newCharacter);
     }
 
-    @ApiOperation(value="Atualizar um personagem, passando seu id no endereco")
+    @ApiOperation(value="Atualizar um personagem")
     @PutMapping
     public RpgCharacter updateCharacter(@RequestBody RpgCharacter CharacterRequest) {
         if(repository.existsById(CharacterRequest.getId())) {
@@ -49,7 +49,7 @@ public class RpgCharacterController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Character id does not exists.");
     }
 
-    @ApiOperation(value="Deletar um personagem, passando seu id no endereco")
+    @ApiOperation(value="Deletar um personagem por id")
     @DeleteMapping("/{CharacterId}")
     public void deleteMapping(@PathVariable Integer CharacterId) {
         if(repository.existsById(CharacterId)) {
